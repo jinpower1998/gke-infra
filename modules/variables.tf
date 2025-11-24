@@ -41,3 +41,19 @@ variable "gce_pd_csi_driver" {
   description = "(Beta) Whether this cluster should enable the Google Compute Engine Persistent Disk Container Storage Interface (CSI) Driver."
   default     = false
 }
+variable "vpc_network_name" {
+  default     = "gcp-network"
+  description = "name of the vpc network"
+}
+
+variable "subnetwork_name" {
+  default     = "gcp-subnet"
+  description = "name of subnetworke"
+}
+
+variable "subnetwork_cdir_range" {
+  default     = "10.10.0.0/24"
+  description = "cdir range of subnetwork"
+}
+
+variable "subnetwork_region" {}

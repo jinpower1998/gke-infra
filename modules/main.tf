@@ -1,11 +1,5 @@
 #provider config
-provider "google" {
-}
-
 terraform {
-  backend "local" {
-
-  }
   required_version = ">= 1.3"
   required_providers {
     google = {

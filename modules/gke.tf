@@ -12,11 +12,11 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(module.gke.ca_certificate)
 }
 
-data "google_compute_subnetwork" "subnetwork" {
-  name    = var.subnetwork
-  project = var.project_id
-  region  = var.region
-}
+# data "google_compute_subnetwork" "subnetwork" {
+#   name    = var.subnetwork
+#   project = var.project_id
+#   region  = var.region
+# }
 
 module "gke" {
   source  = "terraform-google-modules/kubernetes-engine/google//modules/gke-standard-cluster"
@@ -25,7 +25,7 @@ module "gke" {
   project_id = var.project_id
   name       = "${local.cluster_type}-cluster${var.cluster_name_suffix}"
   location   = var.region
-  network    = var.network
+  network    = var.vpc_network_name
   subnetwork = var.subnetwork
 
   ip_allocation_policy = {
@@ -66,6 +66,10 @@ module "gke" {
       enabled = var.gce_pd_csi_driver
     }
   }
+
+  depends_on = [
+    google_compute_network.vpc_network.id
+  ]
 }
 
 module "node_pool" {
