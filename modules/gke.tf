@@ -4,7 +4,7 @@ locals {
   default_workload_pool = "${var.project_id}.svc.id.goog"
 }
 
-data "google_client_config" "default" {}
+# data "google_client_config" "default" {}
 
 provider "kubernetes" {
   host                   = "https://${module.gke.endpoint}"
@@ -12,11 +12,11 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(module.gke.ca_certificate)
 }
 
-# data "google_compute_subnetwork" "subnetwork" {
-#   name    = var.subnetwork
-#   project = var.project_id
-#   region  = var.region
-# }
+data "google_compute_subnetwork" "subnetwork" {
+  name    = var.subnetwork
+  project = var.project_id
+  region  = var.region
+}
 
 module "gke" {
   source  = "terraform-google-modules/kubernetes-engine/google//modules/gke-standard-cluster"
@@ -68,7 +68,7 @@ module "gke" {
   }
 
   depends_on = [
-    google_compute_network.vpc_network.id
+    google_compute_network.vpc_network
   ]
 }
 
@@ -76,17 +76,8 @@ module "node_pool" {
   source  = "terraform-google-modules/kubernetes-engine/google//modules/gke-node-pool"
   version = "~> 41.0"
 
-  project_id = var.project_id
-  location   = var.region
-  cluster    = module.gke.cluster_name
-  node_config = {
-    disk_size_gb    = 100
-    disk_type       = "pd-standard"
-    image_type      = "COS_CONTAINERD"
-    machine_type    = "e2-medium"
-    service_account = var.service_account
-    workload_metadata_config = {
-      mode = "GKE_METADATA"
-    }
-  }
+  project_id  = var.project_id
+  location    = var.region
+  cluster     = module.gke.cluster_name
+  node_config = var.node_config
 }

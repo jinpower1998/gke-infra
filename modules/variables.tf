@@ -57,3 +57,32 @@ variable "subnetwork_cdir_range" {
 }
 
 variable "subnetwork_region" {}
+
+variable "node_config" {
+  type = object({
+    disk_size_gb             = string
+    disk_type                = string
+    image_type               = string
+    machine_type             = string
+    service_account          = string
+    workload_metadata_config = map(string)
+  })
+  default = {
+    disk_size_gb    = "100"
+    disk_type       = "pd-standard"
+    image_type      = "COS_CONTAINERD"
+    machine_type    = "e2-medium"
+    service_account = "fsdfsf"
+    workload_metadata_config = {
+      mode = "GKE_METADATA"
+    }
+  }
+}
+
+variable "service_account_id" {
+  description = "service account id for gke-nodes"
+}
+
+variable "service_account_members" {
+  type = list(string)
+}
