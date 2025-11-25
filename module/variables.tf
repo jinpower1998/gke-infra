@@ -56,6 +56,38 @@ variable "subnetwork_cdir_range" {
   description = "cdir range of subnetwork"
 }
 
+variable "node_count" {
+  description = "number of nodes"
+  type        = number
+}
+
+variable "autoscaling" {
+  type = object({
+    enabled             = bool
+    autoscaling_profile = string
+    min_cpu_cores       = optional(number)
+    max_cpu_cores       = optional(number)
+    min_memory_gb       = optional(number)
+    max_memory_gb       = optional(number)
+    gpu_resources = list(object({
+      resource_type = string,
+      minimum       = number,
+    maximum = number }))
+    auto_repair             = bool
+    auto_upgrade            = bool
+    disk_size               = optional(number)
+    disk_type               = optional(string)
+    image_type              = optional(string)
+    strategy                = optional(string)
+    max_surge               = optional(number)
+    max_unavailable         = optional(number)
+    node_pool_soak_duration = optional(string)
+    batch_soak_duration     = optional(string)
+    batch_percentage        = optional(number)
+    batch_node_count        = optional(number)
+    enable_secure_boot      = optional(bool, false)
+  enable_integrity_monitoring = optional(bool, true) })
+}
 variable "subnetwork_region" {}
 
 variable "node_config" {
@@ -64,15 +96,13 @@ variable "node_config" {
     disk_type                = string
     image_type               = string
     machine_type             = string
-    service_account          = string
     workload_metadata_config = map(string)
   })
   default = {
-    disk_size_gb    = "100"
-    disk_type       = "pd-standard"
-    image_type      = "COS_CONTAINERD"
-    machine_type    = "e2-medium"
-    service_account = "fsdfsf"
+    disk_size_gb = "100"
+    disk_type    = "pd-standard"
+    image_type   = "COS_CONTAINERD"
+    machine_type = "e2-medium"
     workload_metadata_config = {
       mode = "GKE_METADATA"
     }
@@ -80,7 +110,7 @@ variable "node_config" {
 }
 
 variable "service_account_id" {
-  description = "service account id for gke-nodes"
+  description = "service account id for infra"
 }
 
 variable "service_account_members" {

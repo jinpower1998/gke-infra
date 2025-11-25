@@ -1,3 +1,4 @@
 .terraform*
 .terraform.lock.hcl
 modules/.terraform*
+terraform.tfvars

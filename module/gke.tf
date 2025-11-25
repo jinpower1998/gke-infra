@@ -16,6 +16,12 @@ data "google_compute_subnetwork" "subnetwork" {
   name    = var.subnetwork
   project = var.project_id
   region  = var.region
+
+  depends_on = [
+    google_compute_network.vpc_network,
+    google_compute_subnetwork.subnetwork,
+    google_service_account_iam_binding.account_iam
+  ]
 }
 
 module "gke" {
@@ -23,10 +29,10 @@ module "gke" {
   version = "~> 41.0"
 
   project_id = var.project_id
-  name       = "${local.cluster_type}-cluster${var.cluster_name_suffix}"
+  name       = "${local.cluster_type}-${var.cluster_name_suffix}"
   location   = var.region
   network    = var.vpc_network_name
-  subnetwork = var.subnetwork
+  subnetwork = var.subnetwork_name
 
   ip_allocation_policy = {
     cluster_secondary_range_name  = var.ip_range_pods
@@ -68,16 +74,26 @@ module "gke" {
   }
 
   depends_on = [
-    google_compute_network.vpc_network
+    google_compute_network.vpc_network,
+    google_compute_subnetwork.subnetwork,
+    google_service_account_iam_binding.account_iam
   ]
 }
 
 module "node_pool" {
-  source  = "terraform-google-modules/kubernetes-engine/google//modules/gke-node-pool"
-  version = "~> 41.0"
+  source      = "terraform-google-modules/kubernetes-engine/google//modules/gke-node-pool"
+  version     = "~> 41.0"
+  node_count  = var.node_count
+  autoscaling = var.autoscaling
 
   project_id  = var.project_id
   location    = var.region
   cluster     = module.gke.cluster_name
   node_config = var.node_config
+
+  depends_on = [
+    google_compute_network.vpc_network,
+    google_compute_subnetwork.subnetwork,
+    google_service_account_iam_binding.account_iam
+  ]
 }

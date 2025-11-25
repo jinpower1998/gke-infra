@@ -1,22 +1,23 @@
-variable "vpc_network_name" {
-  type = string
-}
+variable "gcp_region" {}
 
-variable "gce_pd_csi_driver" {
-  type = bool
-}
+variable "gcp_project_id" {}
 
-# variable "node_config" {
-#   type = map(
-#   {
-#     disk_size_gb    = "100"
-#     disk_type       = "pd-standard"
-#     image_type      = "COS_CONTAINERD"
-#     machine_type    = "e2-medium"
-#     service_account = ""
-#     workload_metadata_config = {
-#       mode = "GKE_METADATA"
-#     }
-#    }
-#   )
-# }
+variable "gke_service_account_id" {}
+
+variable "iam_service_account_members" {}
+
+variable "gke_vpc_network_name" {}
+
+variable "gke_subnetwork_name" {}
+
+variable "gke_subnetwork_region" {}
+
+variable "gke_subnetwork_cdir_range" {}
+
+variable "gke_cluster_name_suffix" {}
+
+variable "gke_ip_range_pods" {}
+
+variable "gke_ip_range_services" {}
+
+variable "gke_node_count" {}
