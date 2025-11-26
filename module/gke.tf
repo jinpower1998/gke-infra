@@ -1,10 +1,9 @@
 
 locals {
-  cluster_type          = "gke-standard"
   default_workload_pool = "${var.project_id}.svc.id.goog"
 }
 
-# data "google_client_config" "default" {}
+data "google_client_config" "default" {}
 
 provider "kubernetes" {
   host                   = "https://${module.gke.endpoint}"
@@ -29,24 +28,17 @@ module "gke" {
   version = "~> 41.0"
 
   project_id = var.project_id
-  name       = "${local.cluster_type}-${var.cluster_name_suffix}"
+  name       = var.cluster_name_suffix
   location   = var.region
   network    = var.vpc_network_name
   subnetwork = var.subnetwork_name
 
   ip_allocation_policy = {
-    cluster_secondary_range_name  = var.ip_range_pods
-    services_secondary_range_name = var.ip_range_services
+    cluster_ipv4_cidr_block  = var.ip_range_pods
+    services_ipv4_cidr_block = var.ip_range_services
   }
 
-  private_cluster_config = {
-    enable_private_endpoint = true
-    enable_private_nodes    = true
-    master_ipv4_cidr_block  = "172.16.0.0/28"
-    master_global_access_config = {
-      enabled = true
-    }
-  }
+  private_cluster_config = var.cluster_config
 
   deletion_protection      = false
   remove_default_node_pool = true

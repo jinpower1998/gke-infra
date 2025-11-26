@@ -56,8 +56,29 @@ variable "subnetwork_cdir_range" {
   description = "cdir range of subnetwork"
 }
 
+variable "cluster_config" {
+  type = object({
+    enable_private_endpoint = bool
+    enable_private_nodes    = bool
+    master_ipv4_cidr_block  = string
+    master_global_access_config = object(
+      {
+        enabled = bool
+      }
+    )
+  })
+  default = {
+    enable_private_endpoint = true
+    enable_private_nodes    = true
+    master_ipv4_cidr_block  = "172.16.0.0/28"
+    master_global_access_config = {
+      enabled = true
+    }
+  }
+}
+
 variable "node_count" {
-  description = "number of nodes"
+  description = "number of 3 nodes of the pool (i.E 1 = 3 nodes by default)"
   type        = number
 }
 
