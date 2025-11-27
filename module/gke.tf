@@ -27,11 +27,11 @@ module "gke" {
   source  = "terraform-google-modules/kubernetes-engine/google//modules/gke-standard-cluster"
   version = "~> 41.0"
 
-  project_id        = var.project_id
-  name              = var.cluster_name_suffix
-  location          = var.region
-  network           = var.vpc_network_name
-  subnetwork        = var.subnetwork_name
+  project_id = var.project_id
+  name       = var.cluster_name_suffix
+  location   = var.region
+  network    = var.vpc_network_name
+  subnetwork = var.subnetwork_name
 
   ip_allocation_policy = {
     cluster_ipv4_cidr_block  = var.ip_range_pods
@@ -52,7 +52,12 @@ module "gke" {
     cidr_blocks = [{
       cidr_block   = data.google_compute_subnetwork.subnetwork.ip_cidr_range
       display_name = "VPC"
-    }]
+      },
+      {
+      cidr_block   = "0.0.0.0/0"
+      display_name = "internet"
+      }
+    ]
   }
 
   addons_config = {
