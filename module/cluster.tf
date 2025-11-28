@@ -81,10 +81,11 @@ module "gke" {
 }
 
 module "node_pool" {
-  source      = "terraform-google-modules/kubernetes-engine/google//modules/gke-node-pool"
-  version     = "~> 41.0"
-  node_count  = var.node_count
-  autoscaling = var.autoscaling
+  source         = "terraform-google-modules/kubernetes-engine/google//modules/gke-node-pool"
+  version        = "~> 41.0"
+  node_count     = var.node_count
+  autoscaling    = var.autoscaling
+  node_locations = var.node_locations
 
   project_id  = var.project_id
   location    = var.region

@@ -7,7 +7,7 @@ output "endpoint" {
 }
 
 output "ca_certificate" {
-  sensitive   = false
+  sensitive   = true
   description = "The cluster ca certificate (base64 encoded)"
   value       = module.gke.ca_certificate
 }

@@ -111,9 +111,12 @@ variable "autoscaling" {
     enable_secure_boot      = optional(bool, false)
   enable_integrity_monitoring = optional(bool, true) })
 }
-variable "subnetwork_region" {}
+variable "subnetwork_region" {
+  description = "region of the subnetwork"
+}
 
 variable "node_config" {
+  description = "configuration of the nodes"
   type = object({
     disk_size_gb             = string
     disk_type                = string
@@ -132,10 +135,16 @@ variable "node_config" {
   }
 }
 
+variable "node_locations" {
+  description = "list zones of where hte node(s) should be located at"
+  type        = list(string)
+}
+
 variable "service_account_id" {
   description = "service account id for infra"
 }
 
 variable "service_account_members" {
-  type = list(string)
+  description = "member of accounts for using the serviceaccounts"
+  type        = list(string)
 }

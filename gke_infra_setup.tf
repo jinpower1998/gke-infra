@@ -39,6 +39,7 @@ module "gke_infra_setup" {
     }
   }
 
+  node_locations = var.gke_node_locations
   node_config = {
     disk_size_gb = "50"
     disk_type    = "pd-standard"

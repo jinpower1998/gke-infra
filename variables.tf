@@ -1,4 +1,5 @@
 # variables definition of root-module
+# variables must be set in .tvfars-file or through env 
 
 variable "gcp_region" {}
 
@@ -23,3 +24,5 @@ variable "gke_ip_range_pods" {}
 variable "gke_ip_range_services" {}
 
 variable "gke_node_count" {}
+
+variable "gke_node_locations" {}
