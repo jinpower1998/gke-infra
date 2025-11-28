@@ -1,3 +1,5 @@
+# variables definition of root-module
+
 variable "gcp_region" {}
 
 variable "gcp_project_id" {}

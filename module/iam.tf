@@ -1,3 +1,5 @@
+# IAM-binding and serviceaccounts for managaging the cluster and nodes
+
 resource "google_service_account" "gke_infra_service" {
   account_id   = var.service_account_id
   project      = var.project_id

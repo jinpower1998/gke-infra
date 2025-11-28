@@ -1,3 +1,5 @@
+# root-module for defining the whole setup for gke-standard cluster
+
 module "gke_infra_setup" {
 
   source = "./module/"

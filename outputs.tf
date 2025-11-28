@@ -1,3 +1,5 @@
+# outputs definition of root-module
+
 output "endpoint" {
   sensitive = false
   value     = module.gke_infra_setup.endpoint

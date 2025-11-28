@@ -57,8 +57,8 @@ module "gke" {
       display_name = "VPC"
       },
       {
-      cidr_block   = "0.0.0.0/0"
-      display_name = "internet"
+        cidr_block   = "0.0.0.0/0"
+        display_name = "outbound"
       }
     ]
   }
@@ -85,7 +85,6 @@ module "node_pool" {
   version     = "~> 41.0"
   node_count  = var.node_count
   autoscaling = var.autoscaling
-  
 
   project_id  = var.project_id
   location    = var.region

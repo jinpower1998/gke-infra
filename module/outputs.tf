@@ -1,3 +1,5 @@
+# default outputs
+
 output "endpoint" {
   sensitive   = false
   description = "The cluster endpoint"

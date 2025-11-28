@@ -1,3 +1,5 @@
+# Cloud-Nat gateway for outbound traffic
+
 resource "google_compute_router" "router" {
   name    = "gke-router"
   project = var.project_id
