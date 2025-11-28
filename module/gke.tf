@@ -1,4 +1,7 @@
 
+# gke cluster definition through modules
+# sourced from, module: https://github.com/terraform-google-modules/terraform-google-kubernetes-engine/tree/v41.0.2/examples/gke_standard_cluster
+
 locals {
   default_workload_pool = "${var.project_id}.svc.id.goog"
 }
@@ -82,6 +85,7 @@ module "node_pool" {
   version     = "~> 41.0"
   node_count  = var.node_count
   autoscaling = var.autoscaling
+  
 
   project_id  = var.project_id
   location    = var.region
