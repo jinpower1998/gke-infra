@@ -34,6 +34,7 @@ module "gke" {
   name       = var.cluster_name_suffix
   location   = var.region
   network    = var.vpc_network_name
+
   subnetwork = var.subnetwork_name
 
   ip_allocation_policy = {
@@ -43,8 +44,8 @@ module "gke" {
 
   private_cluster_config = var.cluster_config
 
-  deletion_protection      = false
-  remove_default_node_pool = true
+  deletion_protection = false
+  # remove_default_node_pool = true
   initial_node_count       = 1
 
   workload_identity_config = {
