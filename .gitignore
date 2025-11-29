@@ -1,2 +1,5 @@
-.terraform
- terraform.lock*
+.terraform*
+.terraform.lock.hcl
+modules/.terraform*
+terraform.tfvars
+*tfstate*

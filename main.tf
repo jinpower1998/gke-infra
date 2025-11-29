@@ -1,6 +1,4 @@
-#provider config
-provider "google" {
-}
+# terraform backend config
 
 terraform {
   backend "local" {
