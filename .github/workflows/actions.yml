@@ -1,0 +1,30 @@
+name: Deploy GKE-Infrastructure
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  terraform-build:
+    name: "Deploy Infrastructure"
+    runs-on: ubuntu-latest
+    container: hashicorp/terraform:latest
+    steps:
+      - name: init
+        run: terraform init
+      - name: fmt
+        run: terrafrom fmt
+      - name: validate
+        run: terraform validate
+      - name: plan
+        run: terraform plan
+        
+      
+
+
+
+
+
+
+  
