@@ -43,8 +43,8 @@ module "gke" {
 
   private_cluster_config = var.cluster_config
 
-  deletion_protection      = false
-  remove_default_node_pool = true
+  deletion_protection = false
+  initial_node_count  = 1
 
   workload_identity_config = {
     workload_pool = local.default_workload_pool
