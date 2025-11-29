@@ -2,7 +2,7 @@
 
 This self written Terraform module proviosions a standard regional GKE-Cluster:
 
-[diagram](docs/images/gke-infra.png)
+![diagram](docs/images/gke-infra.png)
 
 ### resources
 
