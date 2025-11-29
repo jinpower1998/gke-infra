@@ -1,4 +1,3 @@
-
 # gke cluster definition through modules
 # sourced from, module: https://github.com/terraform-google-modules/terraform-google-kubernetes-engine/tree/v41.0.2/examples/gke_standard_cluster
 
@@ -44,9 +43,8 @@ module "gke" {
 
   private_cluster_config = var.cluster_config
 
-  deletion_protection = false
-  # remove_default_node_pool = true
-  initial_node_count       = 1
+  deletion_protection      = false
+  remove_default_node_pool = true
 
   workload_identity_config = {
     workload_pool = local.default_workload_pool
