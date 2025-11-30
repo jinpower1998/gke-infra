@@ -7,12 +7,12 @@ on:
 
 jobs:
   terraform-build:
-    name: "Deploy Infrastructure"
+    name: "Build"
     runs-on: ubuntu-latest
     container:
       image: hashicorp/terraform:latest
       volumes:
-        - ./:./
+        - ./:${PWD}
     steps:
       - name: init
         run: terraform init
