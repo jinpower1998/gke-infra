@@ -56,6 +56,9 @@ gke_node_locations = [
 
 To provision the infrastructure, run:
 
+```
+terraform init
+```
 
 ```
 terraform plan
