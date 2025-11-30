@@ -5,14 +5,18 @@ on:
     branches:
       - dev
 
+defaults:
+  run:
+    working-directory: ./
+
 jobs:
   terraform-build:
     name: "Build"
     runs-on: ubuntu-latest
     container:
       image: hashicorp/terraform:latest
-      volumes:
-        - ../../:/home/terraform
+      # volumes:
+      #   - ../../:/home/terraform
     steps:
       - name: init
         run: terraform init
