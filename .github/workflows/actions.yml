@@ -3,7 +3,7 @@ name: Deploy GKE-Infrastructure
 on:
   push:
     branches:
-      - main
+      - dev
 
 jobs:
   terraform-build:
