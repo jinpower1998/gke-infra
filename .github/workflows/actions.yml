@@ -1,66 +1,66 @@
-name: Deploy infrastructure
+# name: Deploy infrastructure
 
-on:
-  push:
-    branches:
-      - dev
+# on:
+#   push:
+#     branches:
+#       - dev
 
-permissions:
-  contents: read
+# permissions:
+#   contents: read
 
-defaults:
-  run:
-    working-directory: ./terraform
+# defaults:
+#   run:
+#     working-directory: terraform
     
 
-jobs:
-  build:
-    name: "Build"
-    runs-on: ubuntu-latest
-    container:
-      image: hashicorp/terraform:latest
-      # volumes:
-      #   - terraform:/terraform
-    steps:
-      - name: list
-        run: pwd && ls -lsa
-      - name: init
-        run: terraform init
-      - name: fmt
-        run: terraform fmt --check
-        continue-on-error: true
-      - name: validate
-        run: terraform validate
-      - name: plan
-        run: terraform plan
+# jobs:
+#   build:
+#     name: "Build"
+#     runs-on: ubuntu-latest
+#     container:
+#       image: hashicorp/terraform:latest
+#       volumes:
+#         - ./:/terraform
+#     steps:
+#       - name: list
+#         run: pwd && ls -lsa
+#       - name: init
+#         run: terraform init
+#       - name: fmt
+#         run: terraform fmt --check
+#         continue-on-error: true
+#       - name: validate
+#         run: terraform validate
+#       - name: plan
+#         run: terraform plan
 
-  deploy:
-    name: "Deploy"
-    runs-on: ubuntu-latest
-    container:
-      image: hashicorp/terraform:latest
-      # volumes:
-      #   - terraform:/terraform
-    steps:
-      - name: init
-        run: terraform init
-      - name: fmt
-        run: terraform apply --auto-approve
-    needs: build
+#   deploy:
+#     name: "Deploy"
+#     runs-on: ubuntu-latest
+#     container:
+#       image: hashicorp/terraform:latest
+#       volumes:
+#         - ./:/terraform
+#     steps:
+#       - name: init
+#         run: terraform init
+#       - name: fmt
+#         run: terraform apply --auto-approve
+#     needs: build
       
-  destroy:
-    name: "Destroy"
-    runs-on: ubuntu-latest
-    container:
-      image: hashicorp/terraform:latest
-      # volumes:
-      #   - terraform:/terraform
-    steps:
-      - name: init
-        run: terraform init
-      - name: fmt
-        run: terraform destroy --auto-approve
-    needs: build
+#   destroy:
+#     name: "Destroy"
+#     runs-on: ubuntu-latest
+#     container:
+#       image: hashicorp/terraform:latest
+#       volumes:
+#         - ./:/terraform
+#     steps:
+#       - name: init
+#         run: terraform init
+#       - name: fmt
+#         run: terraform destroy --auto-approve
+#     needs: build
 
 
   
