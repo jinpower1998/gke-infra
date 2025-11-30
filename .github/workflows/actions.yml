@@ -1,11 +1,10 @@
 name: Deploy GKE-Infrastructure
 
+
 on:
   push:
     branches:
       - dev
-    paths:
-      - ../../
 
 jobs:
   terraform-build:
@@ -15,12 +14,16 @@ jobs:
     steps:
       - name: init
         run: terraform init
+        working-directory: "../../"
       - name: fmt
         run: terraform fmt
+        working-directory: "../../"
       - name: validate
         run: terraform validate
+        working-directory: "../../"
       - name: plan
         run: terraform plan
+        working-directory: "../../"
         
       
 
