@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - dev
+    paths:
+      - ../../
 
 jobs:
   terraform-build:
@@ -14,7 +16,7 @@ jobs:
       - name: init
         run: terraform init
       - name: fmt
-        run: terrafrom fmt
+        run: terraform fmt
       - name: validate
         run: terraform validate
       - name: plan
