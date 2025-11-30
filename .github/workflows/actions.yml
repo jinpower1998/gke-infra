@@ -12,7 +12,7 @@ jobs:
     container:
       image: hashicorp/terraform:latest
       volumes:
-        - ../.../:/home/terraform
+        - ../../:/home/terraform
     steps:
       - name: init
         run: terraform init
