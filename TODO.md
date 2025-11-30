@@ -1,0 +1,3 @@
+- configute oidc for github authentication to google-cloud
+- create github-actions pipeline for provisioning
+- store tfste in remote
