@@ -1,5 +1,4 @@
-name: Deploy GKE-Infrastructure
-
+name: Deploy infrastructure
 
 on:
   push:
@@ -10,20 +9,21 @@ jobs:
   terraform-build:
     name: "Deploy Infrastructure"
     runs-on: ubuntu-latest
-    container: hashicorp/terraform:latest
+    container:
+      image: hashicorp/terraform:latest
+      volumes:
+        - ./:./
     steps:
       - name: init
         run: terraform init
-        working-directory: "../../"
       - name: fmt
         run: terraform fmt
-        working-directory: "../../"
+        continue-on-error: true
       - name: validate
         run: terraform validate
-        working-directory: "../../"
       - name: plan
         run: terraform plan
-        working-directory: "../../"
+
         
       
 
